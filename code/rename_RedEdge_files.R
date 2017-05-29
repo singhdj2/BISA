@@ -1,11 +1,13 @@
+#####################################################################################
 # 2017-05-28 
-# Function renames Micasense RedEdge Camera files for database uploading
+# Objective: Function renames Micasense RedEdge Camera files for database uploading
 # keeps the original MicaSense Camera folder structure intact!
 # Author: singhdj2@ksu.edu
+#####################################################################################
 
-### Note: Function assumes the input argument 'directoryPath' is of MicaSense file structure i.e.
-### Full Flight Directory >> 000NSET Folders >> 000N Folders >> '.tif' image files
-### Run this function after saving a backup copy of your work elsewhere
+### Note: This function assumes the input argument 'directoryPath' has MicaSense file structure i.e.
+### Main Directory >> 000NSET Directories (Actual Flights) >> 000N Folders >> '.tif' image files
+### Run this function on server after saving a backup copy of your work elsewhere (local machine/Hard Drive)
 
 rename_RE_files <- function(dirPath){
   if (!is.null(dirPath)) setwd(dirPath)
@@ -44,5 +46,5 @@ rename_RE_files <- function(dirPath){
 }
 
 
-## run function on RedEdge flights one by one to make sure everything stays under control!
+## Use: run function on RedEdge flights folder!
 system.time(rename_files("~/Downloads/test_rededge1/"))
