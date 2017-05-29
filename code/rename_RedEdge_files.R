@@ -1,9 +1,9 @@
-#####################################################################################
+###############################################################################################################
 # 2017-05-28 
-# Objective: Function renames Micasense RedEdge Camera files for database uploading
+# Objective: Function renames Micasense RedEdge Camera files ('.tif' and '.dat' files) for database uploading
 # New file naming reflects the original MicaSense Camera folder structure.
 # Author: singhdj2@ksu.edu
-#####################################################################################
+###############################################################################################################
 
 ### Note: This function assumes the input argument 'directoryPath' has MicaSense file structure i.e.
 ### Directory Path >> 000NSET Directories (Actual Flights) >> 000N Folders >> '.tif' image files
