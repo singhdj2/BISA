@@ -6,7 +6,7 @@
 ###############################################################################################################
 
 ### Note: This function assumes the input argument 'directoryPath' has MicaSense file structure i.e.
-### Directory Path >> 000NSET Directories (Actual Flights) >> 000N Folders >> '.tif' image files
+### Directory Path >> 000XSET Directories (Actual Flights) >> XXX Folders >> '.tif' image files
 ### Run this function on server after saving a backup copy of your work elsewhere (local machine/Hard Drive)
 
 rename_RE_files <- function(dirPath){
