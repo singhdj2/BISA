@@ -1,12 +1,12 @@
 #####################################################################################
 # 2017-05-28 
 # Objective: Function renames Micasense RedEdge Camera files for database uploading
-# keeps the original MicaSense Camera folder structure intact!
+# New file naming reflects the original MicaSense Camera folder structure.
 # Author: singhdj2@ksu.edu
 #####################################################################################
 
 ### Note: This function assumes the input argument 'directoryPath' has MicaSense file structure i.e.
-### Main Directory >> 000NSET Directories (Actual Flights) >> 000N Folders >> '.tif' image files
+### Directory Path >> 000NSET Directories (Actual Flights) >> 000N Folders >> '.tif' image files
 ### Run this function on server after saving a backup copy of your work elsewhere (local machine/Hard Drive)
 
 rename_RE_files <- function(dirPath){
