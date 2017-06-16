@@ -4,7 +4,7 @@
 # date: 2017-06-11
 # singhdj2@ksu.edu
 # *Input HapMap file processed: Tassel Raw SNP 'hmp.txt' >> join parts with bed (Liang Gao's python script) 
-# Filter criteria as per Rutkoski (2016): MAF<0.05; >5% Het; missing >30% per marker ; line >85% missing 
+# Filter criteria: MAF>0.05; >5% Het; missing >80% per marker ; line >75% missing 
 
 require(data.table)
 require(dplyr)
@@ -15,7 +15,7 @@ require(tidyr)
 ## Execute Liang's python scripts to:
 ##     i. join chrom position parts with assembly bed file
 ##     ii. convert alleles to genotype calls: AA,AB,BB,NA; adds a summary stats at the end
-# Example usage on Beocat:
+# Example usage on Beocat environment:
 system("python2 ~/scripts/format.hmp.id.parts.to.chr.py <yourFILE>.hmp.txt > <yourFile>.chr.hmp.txt")
 system("python2 ~/scripts/GBS_filter_TASSEL5_hmp.py <yourFile>.chr.hmp.txt > <yourFile>.chr.hmp.filt.MSTmap.txt")
 
