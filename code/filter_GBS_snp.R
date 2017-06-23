@@ -16,8 +16,8 @@ require(tidyr)
 ##     i. join chrom position parts with assembly bed file
 ##     ii. convert alleles to genotype calls: AA,AB,BB,NA; adds a summary stats at the end
 # Example usage on Beocat environment:
-system("python2 ~/scripts/format.hmp.id.parts.to.chr.py <yourFILE>.hmp.txt > <yourFile>.chr.hmp.txt")
-system("python2 ~/scripts/GBS_filter_TASSEL5_hmp.py <yourFile>.chr.hmp.txt > <yourFile>.chr.hmp.filt.MSTmap.txt")
+system("python2 /homes/singhdj2/scripts/format.hmp.id.parts.to.chr.py <yourFILE>.hmp.txt > <yourFile>.chr.hmp.txt")
+system("python2 /homes/singhdj2/scripts/GBS_filter_TASSEL5_hmp.py <yourFile>.chr.hmp.txt > <yourFile>.chr.hmp.filt.MSTmap.txt")
 
 hmp <- fread("gbs/projects/BISA14-17/BISA14-17.chr.hmp.filt.MSTmap.txt",sep = "\t",header = T)
 class(hmp)
