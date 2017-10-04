@@ -7,7 +7,9 @@ library(lme4)
 library(dplyr)
 library(tidyr)
 library(mixtools)
+library(RMySQL)
 library(sommer)
+#library(ggplot2)
 
 ### heritablity function for single trait based broad-sense heritability calculations
 calcH2func <- function(dat) {
@@ -135,3 +137,42 @@ pt(-abs(0.22/0.133),df=pmin(589,589)-1)
 ## narrow-sense heritability
 (h2 <- diag(gvc) / diag(cov(blue.rrblup[,names(diag(gvc))], use = "complete.obs")))
 sqrt(h2)
+
+########################################################
+#### fetching data from wheatgenetics mySQL database ###
+########################################################
+cimm= dbConnect(MySQL(),user="user13", dbname='cimmyt', host="apate", password="xpwxxxx") #when on server use 'apate'
+#dbListTables(cimm); dbListFields(cimm,'phenotypes') ; dbListFields(cimm,'traits')
+# single query combining pheno and plot infromation
+pheno <- dbGetQuery(cimm, "SELECT  phenotypes.plot_id,
+	                             phenotypes.phenotype_value,
+                               phenotypes.phenotype_date,
+                               plots.iyear,
+                               plots.ilocation,
+                               plots.icondition,
+                               plots.plot_no,
+                               #plots.plot_id,
+                               plots.entry,
+                               plots.gid,
+                               plots.rep,
+                               plots.block,
+                               plots.col,
+                               plots.`row`,
+                               plots.trial,
+                               plots.location,
+                               plots.planting_date
+                               FROM plots
+                               LEFT JOIN phenotypes ON plots.plot_id = phenotypes.plot_id
+                               #AND gbs.plexing LIKE barcodes.`set`
+                           WHERE (phenotypes.plot_id LIKE '17-FAS-STN%' OR phenotypes.plot_id LIKE '16-FAS-STN%' OR 
+                                phenotypes.plot_id LIKE '15-FAS-STN%' OR phenotypes.plot_id LIKE '14-FAS-STN%') 
+                                 AND (trait_id = 'LOI' AND phenotype_date !='2017-03-29')
+")
+
+#close DB connection
+dbDisconnect(cimm)
+##
+head(pheno)
+pheno <- pheno %>% mutate(loc_date=paste(.$iyear,.$ilocation,.$phenotype_date,sep="_"))
+
+## add genomic prediction functions below....
