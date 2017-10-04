@@ -1,6 +1,7 @@
 #######################################################################
 ### objective: create functions for phenotypic data analysis       ####
-### Functions: heritability, BLUE/BLUP, mixture Normal,DEM slicing ####
+### Functions: heritability, BLUE/BLUP, mixture normal,            ####
+### .........  DEM slicing, genetic correlations                   ####
 #######################################################################
 library(lme4)
 library(dplyr)
