@@ -6,6 +6,7 @@ library(lme4)
 library(dplyr)
 library(tidyr)
 library(mixtools)
+library(sommer)
 
 ### heritablity function for single trait based broad-sense heritability calculations
 calcH2func <- function(dat) {
@@ -101,3 +102,35 @@ pheno.blue <- pheno.mix.new %>% gather(trait,value,DAYSMT:DL_mixLI) %>%
   mutate(GID=paste0("GID",substr(entry,4,nchar(entry)))) %>%
   dplyr::select(-entry)
 
+##################################################################
+#### genetic correlations across traits using sommer package #####
+##################################################################
+## Fit Multivariate Linear mixed model on pheno traits
+# check genotype order in two dfs
+all(names(data.frame(geno01))==blue.rrblup$GID)
+# create marker matrix for sommer input
+A <- A.mat(t(geno01))
+# run Multi-variate model
+system.time(ans.A <- mmer2(cbind(LOI,LOS,PH,DTHD,GRYLD,DAYSMT,DL_mean,DL_mixLI)~1, random=~us(trait):g(GID), rcov=~us(trait):units, G=list(GID=A),
+               data=blue.rrblup, silent = FALSE))
+summary(ans.A)
+## genetic variance covariance
+gvc <- ans.A$var.comp$`g(GID)`
+## extract variances (diagonals) and get standard deviations 
+sd.gvc <- as.matrix(sqrt(diag(gvc)))
+## get possible products sd(Vgi) * sd(Vgi')
+prod.sd <- sd.gvc %*% t(sd.gvc)
+## genetic correlations cov(gi,gi')/[sd(Vgi) * sd(Vgi')] 
+gen.cor <- gvc/prod.sd
+gen.cor
+
+## genetic corr with standard errors
+pin(ans.A, gen.corr ~ V2 / sqrt(V1*V9)) # LOI vs LOS
+pt(-abs(0.92/0.0235),df=pmin(589,589)-1) # calculate p-values: (estimate/std error), degrees of freedom
+pin(ans.A, gen.corr ~ V3 / sqrt(V1*V16)) # LOI vs PH
+pin(ans.A, gen.corr ~ V10 / sqrt(V9*V16)) # LOS vs PH
+pt(-abs(0.22/0.133),df=pmin(589,589)-1)
+
+## narrow-sense heritability
+(h2 <- diag(gvc) / diag(cov(blue.rrblup[,names(diag(gvc))], use = "complete.obs")))
+sqrt(h2)
