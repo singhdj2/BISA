@@ -69,6 +69,8 @@ mixCalc <- function(x){
 
 
 ### Function to slice DEM by percentiles/quantile
+## quantile function
+qnt <- function(x,a) quantile(x, probs=a, na.rm=TRUE)
 ldh.0315minus0302.osav <- ldh.0315minus0302.osav %>% dplyr::rename(dem=height_diff_cm) %>% 
               group_by(plot_id) %>% 
               summarize(num.pix=length(dem),
