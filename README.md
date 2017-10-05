@@ -1,4 +1,4 @@
-## BISA 2014-17 HTP lodging project
+## BISA 2015-17 HTP Lodging Assessment Project
 ### Author: Daljit Singh
 ### singhdj2@ksu.edu
 ---------------------------------------------------------------------------------------------
