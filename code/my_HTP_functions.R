@@ -2,6 +2,7 @@
 ### objective: create functions for phenotypic data analysis       ####
 ### Functions: heritability, BLUE/BLUP, mixture normal,            ####
 ### .........  DEM slicing, genetic correlations                   ####
+### author: Daljit Singh (singhdj2@ksu.edu)                        ####
 #######################################################################
 library(lme4)
 library(dplyr)
